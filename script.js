@@ -47,6 +47,7 @@ let marcadores = [];
 
 // CLICK EN EL MAPA
 map.on('click', function (e) {
+
     let lat = e.latlng.lat;
     let lng = e.latlng.lng;
 
@@ -88,3 +89,23 @@ function limpiarMapa() {
     puntos = [];
 }
 
+// calcular la distancia
+let puntosDistancia = [];
+
+map.on('click', function(e) {
+
+    // guardar punto
+    puntosDistancia.push(e.latlng);
+
+    // si hay 2 puntos → calcular
+    if (puntosDistancia.length === 2) {
+
+        let distancia = puntosDistancia[0].distanceTo(puntosDistancia[1]);
+
+        alert("Distancia: " + distancia.toFixed(2) + " metros");
+
+        // resetear para volver a medir
+        puntosDistancia = [];
+    }
+
+});
