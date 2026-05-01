@@ -1,9 +1,26 @@
-// CREAR MAPA
-var map = L.map('map').setView([-34.6037, -58.3816], 13);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+// CAPAS BASE
+let mapaNormal = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'OpenStreetMap'
-}).addTo(map);
+});
+
+let mapaOscuro = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: 'CartoDB'
+});
+
+// CREAR MAPA
+var map = L.map('map', {
+    center: [-34.6037, -58.3816],
+    zoom: 13,
+    layers: [mapaNormal]
+});
+
+// CONTROL DE CAPAS
+let baseMaps = {
+    "Normal": mapaNormal,
+    "Oscuro": mapaOscuro
+};
+
+L.control.layers(baseMaps).addTo(map);
 
 // Marcador personalizado
 var customIcon = L.icon({
@@ -70,3 +87,4 @@ function limpiarMapa() {
     // reiniciar puntos
     puntos = [];
 }
+
